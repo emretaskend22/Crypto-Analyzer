@@ -35,7 +35,6 @@ final-bot/
 │   └── app.py          # Main Streamlit application
 ├── airflow_dags/
 │   └── crypto_etl_dag.py # Airflow DAG for data ingestion
-├── .env.example        # Example environment variables file
 ├── requirements.txt    # Project dependencies
 └── README.md
 ```
@@ -48,7 +47,6 @@ Follow these steps to set up and run the project on your local machine.
 
 - Python 3.9+
 - PostgreSQL
-- Apache Airflow (optional, for running the ETL pipeline)
 
 ### 2. Clone the Repository
 
@@ -70,17 +68,11 @@ pip install -r requirements.txt
 ### 4. Configure the Database
 
 1.  **Create a PostgreSQL database** for the project (e.g., `crypto_db`).
-2.  **Create a `.env` file** by copying the example file:
-    ```bash
-    cp .env.example .env
-    ```
-3.  **Edit the `.env` file** with your actual database credentials:
-    ```
-    DB_USER="your_db_user"
-    DB_PASS="your_db_password"
-    DB_HOST="localhost"
-    DB_PORT="5432"
-    DB_NAME="crypto_db"
+2.  **Open the `backend/db/db_connection.py` file.**
+3.  **Fill in your database credentials** in the following variables:
+    ```python
+    DB_USER = "your_db_user"
+    DB_PASS = "your_db_password"
     ```
 
 ### 5. Create the Database Table
@@ -114,10 +106,10 @@ You need to run the backend and frontend servers in separate terminals.
 
 ### 1. Run the Backend Server
 
-Navigate to the project root and run the following command:
+Navigate to the project root and run the `main.py` file within the `backend/app` directory:
 
 ```bash
-uvicorn backend.app.main:app --reload
+python backend/app/main.py
 ```
 The backend server will be available at `http://127.0.0.1:8000`.
 

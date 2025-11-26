@@ -4,11 +4,11 @@ from sqlalchemy.dialects.postgresql import DOUBLE_PRECISION
 import os
 
 # ---------- Configuration ----------
-DB_USER = os.getenv("DB_USER", "crypto_user")
-DB_PASS = os.getenv("DB_PASS", "Whitewolf2206")
-DB_HOST = os.getenv("DB_HOST", "localhost")
-DB_PORT = os.getenv("DB_PORT", "5432")
-DB_NAME = os.getenv("DB_NAME", "crypto_db")
+DB_USER = ""
+DB_PASS = ""
+DB_HOST = "localhost"
+DB_PORT = "5432"
+DB_NAME = "crypto_db"
 
 DB_URL = f"postgresql://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 

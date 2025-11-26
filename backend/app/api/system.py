@@ -13,16 +13,11 @@ system_router = APIRouter()
 # -------------------------------
 @system_router.get("/analytics")
 def analytics(
-    coin: str = Query("BTCUSDT", description="Coin symbol, e.g., BTCUSDT"),
-    candle_size: str = Query(
-        "1h",
-        description="Candle size for aggregation",
-        regex="^(1h|12h|1d|1w|1m)$"
-    )
+    coin: str = Query("BTCUSDT", description="Coin symbol, e.g., BTCUSDT")
 ):
     """Get analytics data with technical indicators."""
     try:
-        data = get_coin_analytics(coin_symbol=coin, candle_size=candle_size)
+        data = get_coin_analytics(coin_symbol=coin)
 
         if isinstance(data, dict) and "error" in data:
             print(f"[API] Analytics error: {data['error']}")
@@ -64,4 +59,3 @@ def predict(
     if "error" in result:
         return {"coin": coin, "error": result["error"]}
     return {"coin": coin, "data": result}
-

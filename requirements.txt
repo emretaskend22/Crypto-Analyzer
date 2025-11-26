@@ -1,0 +1,25 @@
+# ----------------------------------
+# Python Project Dependencies
+# ----------------------------------
+# Install these using: pip install -r requirements.txt
+
+# Core Backend & API
+fastapi
+uvicorn[standard]
+python-dotenv
+sqlalchemy
+psycopg2-binary
+
+# Data Science & Machine Learning
+pandas
+numpy
+scikit-learn
+tensorflow
+
+# Frontend
+streamlit
+plotly
+requests
+
+# ETL / Data Pipeline
+apache-airflow

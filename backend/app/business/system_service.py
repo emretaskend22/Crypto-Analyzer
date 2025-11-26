@@ -7,33 +7,17 @@ from ml.backtesting_strategies import sma_crossover_strategy, buy_and_hold_strat
 import numpy as np
 from ml.prediction_manager import predict_next_hours
 
-CANDLE_HOURS = {
-    "1h": 1,
-    "12h": 12,
-    "1d": 24,
-    "1w": 24*7,
-    "1m": 24*30
-}
+LOOKBACK_HOURS = 200
 
-LOOKBACK_HOURS = {
-    "1h": 200,           # 200 hourly rows
-    "12h": 12*200,       # 200 12h candles → 2400 hours
-    "1d": 24*90,         # 90 daily candles → 2160 hours
-    "1w": 24*7*52,       # 52 weekly candles → 8736 hours
-
-}
-def get_coin_analytics(coin_symbol: str = "BTCUSDT", candle_size: str = "1h"):
+def get_coin_analytics(coin_symbol: str = "BTCUSDT"):
     """
     Fetch coin analytics data and aggregate hourly candles into candle_size.
     """
     try:
-        hours_to_fetch = LOOKBACK_HOURS[candle_size]
-        df = fetch_ohlcv_from_db(coin=coin_symbol, timeframe=hours_to_fetch)
+        df = fetch_ohlcv_from_db(coin=coin_symbol, timeframe=LOOKBACK_HOURS)
 
         if df.empty:
             return {"error": f"No data available for {coin_symbol}"}
-        if candle_size != "1h":
-            df = aggregate_candles(df, candle_size)
 
         # Add indicators if missing
         if not all(col in df.columns for col in ["sma_20", "ema_20", "rsi_14", "macd"]):
@@ -121,4 +105,3 @@ def run_prediction(coin: str):
     if "error" in result:
         return {"error": result["error"]}
     return result
-

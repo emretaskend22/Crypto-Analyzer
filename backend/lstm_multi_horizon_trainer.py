@@ -7,11 +7,11 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import LSTM, Dense, Dropout
 from tensorflow.keras.callbacks import EarlyStopping, ReduceLROnPlateau, ModelCheckpoint
 from backend.db.data_fetcher import fetch_ohlcv_from_db
+from backend.db.enums import Coin
 
 # -------------------------------
 # CONFIG
 # -------------------------------
-COINS = ["BTCUSDT", "ETHUSDT"]
 HORIZONS = [1, 2, 3, 4, 5, 6]  # Predict next 6 hours
 N_PAST = 24                     # Lookback window (24 hours)
 TIMEFRAME = 5000                # Number of candles to load
@@ -39,7 +39,8 @@ def create_sequences(data: np.ndarray, n_past: int, horizons: list[int]):
     return np.array(X), np.array(Y)
 
 
-for coin in COINS:
+for coin_enum in Coin:
+    coin = coin_enum.value
     print(f"\n🚀 Training model for {coin}...")
 
     # 1️⃣ Load OHLCV data

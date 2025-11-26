@@ -4,8 +4,8 @@ from sqlalchemy import text
 from db_connection import engine
 from data_fetcher import fetch_binance_ohlcv
 from db_data_utils import add_indicators
+from .enums import Coin
 
-COINS = ["BTCUSDT", "ETHUSDT"]
 INTERVAL = "1h"
 BATCH_SIZE = 500  # Binance max per request
 
@@ -70,5 +70,5 @@ def clear_table():
 if __name__ == "__main__":
     # Optionally clear table before backfill
     # clear_table()
-    for coin in COINS:
-        backfill_coin(coin)
+    for coin_enum in Coin:
+        backfill_coin(coin_enum.value)

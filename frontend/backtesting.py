@@ -3,6 +3,7 @@ import plotly.graph_objects as go
 import pandas as pd
 import datetime
 import requests
+import json
 
 BACKEND_URL = "http://127.0.0.1:8000"
 
@@ -10,18 +11,18 @@ def backtesting_tab():
     st.header("📉 Strategy Backtesting")
 
     # --- Selection controls ---
-    col1, col2, col3 = st.columns([1, 1, 1])
+    col1, col2 = st.columns([1, 1])
     with col1:
-        coin = st.selectbox("Select Coin", ["BTCUSDT", "ETHUSDT", "SOLUSDT"], index=0)
+        coin = st.selectbox("Select Coin", ["BTCUSDT", "ETHUSDT"], index=0, key="backtesting_coin")
     with col2:
         strategy = st.selectbox(
             "Select Strategy",
-            ["Buy & Hold", "SMA Crossover (20/50)", "RSI Strategy", "EMA Crossover",
-             "MACD Strategy", "Bollinger Bands"],
-            index=1
+            ["Buy & Hold", "SMA Crossover (20/50)", "RSI Strategy", "EMA Crossover", "MACD Strategy", "Bollinger Bands"],
+            index=1,
+            key="backtesting_strategy"
         )
-    with col3:
-        timeframe = st.selectbox("Candle Size", ["1h", "12h", "1d"], index=0)
+    
+    timeframe = "1h"
 
     col4, col5 = st.columns([1, 1])
     with col4:
@@ -29,14 +30,16 @@ def backtesting_tab():
             "Start Date",
             datetime.date(2023, 1, 1),
             min_value=datetime.date(2023, 1, 1),
-            max_value=datetime.date.today()
+            max_value=datetime.date.today(),
+            key="start_date"
         )
     with col5:
         end_date = st.date_input(
             "End Date",
             datetime.date.today(),
             min_value=datetime.date(2023, 1, 1),
-            max_value=datetime.date.today()
+            max_value=datetime.date.today(),
+            key="end_date"
         )
 
     st.markdown("---")
@@ -59,10 +62,6 @@ def backtesting_tab():
                 timeout=60
             )
             data = res.json()
-
-            # --- Debug prints (minimal) ---
-            st.text(f"HTTP Status Code: {res.status_code}")
-            st.text(f"Response Keys: {list(data.keys())}")
 
             if "error" in data.get("data", {}):
                 st.error(f"Backtest failed: {data['data']['error']}")

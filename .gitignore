@@ -1,0 +1,29 @@
+# IDE and Editor Folders
+.idea/
+.vscode/
+
+# Python Virtual Environments
+.venv/
+.venv_airflow/
+venv/
+env/
+
+# Python Cache
+__pycache__/
+*.pyc
+
+# Environment Variables
+.env
+
+# Build and Distribution
+build/
+dist/
+*.egg-info/
+
+# Test Artifacts
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Streamlit
+.streamlit/

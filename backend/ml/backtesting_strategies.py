@@ -158,4 +158,3 @@ def bollinger_bands_strategy(df, window=20, num_std=2, initial_balance=10000):
         df.at[i, "returns"] = df["equity"].pct_change().iloc[i]
 
     return df
-

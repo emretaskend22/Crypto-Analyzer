@@ -6,12 +6,8 @@ from sqlalchemy import create_engine
 from data_fetcher import fetch_binance_ohlcv
 from db_data_utils import add_indicators, filter_new_rows
 from db_connection import engine
+from .enums import Coin
 
-
-# -----------------------------
-# Coins
-# -----------------------------
-COINS = ["BTCUSDT", "ETHUSDT"]
 
 # -----------------------------
 # ETL function
@@ -54,7 +50,8 @@ with DAG(
 ) as dag:
 
     tasks = []
-    for coin in COINS:
+    for coin_enum in Coin:
+        coin = coin_enum.value
         task = PythonOperator(
             task_id=f"etl_{coin.lower()}",
             python_callable=etl_for_coin,

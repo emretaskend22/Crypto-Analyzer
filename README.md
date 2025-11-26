@@ -57,11 +57,9 @@ cd final-bot
 
 ### 3. Set Up the Environment
 
-Create a virtual environment and install the required dependencies.
+Install the required dependencies.
 
 ```bash
-python -m venv .venv
-source .venv/bin/activate  # On Windows, use `.venv\Scripts\activate`
 pip install -r requirements.txt
 ```
 
@@ -106,11 +104,9 @@ You need to run the backend and frontend servers in separate terminals.
 
 ### 1. Run the Backend Server
 
-Navigate to the project root and run the `main.py` file within the `backend/app` directory:
+Navigate to the project root and run the `main.py` file within the `backend` directory:
 
-```bash
-python backend/app/main.py
-```
+
 The backend server will be available at `http://127.0.0.1:8000`.
 
 ### 2. Run the Frontend Application
